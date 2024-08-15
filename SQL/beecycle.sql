@@ -14,6 +14,13 @@ FROM fact_sales
 GROUP BY MONTHNAME(order_date)
 ORDER BY total_pendapatan DESC;
 
+-- Mencari avarage penjualan dikelompokan berdasarkan tahun
+SELECT YEAR(order_date) AS tahun,
+       AVG(totalprice_rupiah) AS avg_pendapatan
+FROM fact_sales
+GROUP BY YEAR(order_date)
+ORDER BY tahun ,avg_pendapatan;
+
 -- Produk mana yang memberikan kontribusi terbesar terhadap pendapatan
 SELECT dp.product_name,
 	   SUM(fs.totalprice_rupiah) AS total_pendapatan,
@@ -94,6 +101,8 @@ FROM fact_sales fs
 INNER JOIN dim_territory dt ON fs.territory_id = dt.territory_id
 GROUP BY 1
 ORDER BY total_pendapatan_country DESC;
+
+
 
 
 
